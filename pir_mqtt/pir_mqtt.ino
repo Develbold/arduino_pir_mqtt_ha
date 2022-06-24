@@ -9,7 +9,7 @@
 
 byte mac[] = {0x00, 0x10, 0xFA, 0x6E, 0x38, 0x4A};
 unsigned long lastReadAt = millis();
-//unsigned long lastAvailabilityToggleAt = millis();
+unsigned long lastAvailabilityToggleAt = millis();
 bool lastInputStateFront = false;
 bool lastInputStateBack = false;
 
@@ -38,11 +38,14 @@ void setup() {
 //    sensor_back.setAvailability(false);
 
     lastReadAt = millis();
-//    lastAvailabilityToggleAt = millis();
+    lastAvailabilityToggleAt = millis();
 
     // set device's details (optional)
     device.setName("Pir Sensors Flur");
-    device.setSoftwareVersion("1.0.2");
+    device.setSoftwareVersion("1.1.0");
+
+    device.enableSharedAvailability();
+    device.enableLastWill();
 
     mqtt.begin(BROKER_ADDR, BROKER_USERNAME, BROKER_PASSWORD);
 }
@@ -60,9 +63,8 @@ void loop() {
         lastReadAt = millis();
     }
 
-//        if ((millis() - lastAvailabilityToggleAt) > 5000) {
-//        sensor_front.setAvailability(!sensor_front.isOnline());
-//        sensor_back.setAvailability(!sensor_back.isOnline());
-//        lastAvailabilityToggleAt = millis();
-//    }
+        if ((millis() - lastAvailabilityToggleAt) > 5000) {
+        device.setAvailability(true);
+        lastAvailabilityToggleAt = millis();
+    }
 }
