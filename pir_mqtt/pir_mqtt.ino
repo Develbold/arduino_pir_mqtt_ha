@@ -3,7 +3,7 @@
 
 #define INPUT_PIN_FRONT      9
 #define INPUT_PIN_BACK       8
-#define BROKER_ADDR          IPAddress(192,168,0,12)
+#define BROKER_ADDR          IPAddress(192,168,0,3)
 #define BROKER_USERNAME      "arduino" // replace with your credentials
 #define BROKER_PASSWORD      "foobar"
 
