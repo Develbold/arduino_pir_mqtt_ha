@@ -42,9 +42,10 @@ void setup() {
 
     // set device's details (optional)
     device.setName("Pir Sensors Flur");
-    device.setSoftwareVersion("1.1.0");
+    device.setSoftwareVersion("1.1.1");
 
     device.enableSharedAvailability();
+    device.setAvailability(false);
     device.enableLastWill();
 
     mqtt.begin(BROKER_ADDR, BROKER_USERNAME, BROKER_PASSWORD);
@@ -63,7 +64,7 @@ void loop() {
         lastReadAt = millis();
     }
 
-        if ((millis() - lastAvailabilityToggleAt) > 5000) {
+        if ((millis() - lastAvailabilityToggleAt) > 1000) {
         device.setAvailability(true);
         lastAvailabilityToggleAt = millis();
     }
